@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -eu
+
+FILE=$(tempfile)
+
+cleanup () {
+	saved_err=$?
+	rm -f -- $FILE
+	exit $saved_err
+}
+
+heroku config | grep '^HEROKU_POSTGRESQL_[A-Z]*_URL:' > $FILE
+
+lines=$(wc -l $FILE | awk '{print $1}')
+if [ "$lines" -ne 1 ]; then
+	echo "Did not find sole PG instance:"
+	cat $FILE
+	exit 1
+fi
+
+instance=$(awk -F: '{print $1}' $FILE)
+echo $instance
