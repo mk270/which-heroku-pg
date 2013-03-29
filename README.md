@@ -6,6 +6,6 @@ more than one.
 
 Usage:
 
- $ PG_INSTANCE=$(which-heroku-pg)
- $ heroku pg:promote $PG_INSTANCE
+    $ PG_INSTANCE=$(which-heroku-pg)
+    $ heroku pg:promote $PG_INSTANCE
 
